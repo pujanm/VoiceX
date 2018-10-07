@@ -1,0 +1,220 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>Home</title>
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+
+    <!-- Bootstrap core CSS     -->
+    <link href="../../static/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Animation library for notifications   -->
+    <link href="../../static/css/animate.min.css" rel="stylesheet"/>
+
+    <!--  Paper Dashboard core CSS    -->
+    <link href="../../static/css/paper-dashboard.css" rel="stylesheet"/>
+
+
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="../../static/css/demo.css" rel="stylesheet" />
+
+
+    <!--  Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+    <link href="../../static/css/themify-icons.css" rel="stylesheet">
+		<!-- Charts -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+		<style media="screen">
+			.col-md-12 {
+				word-wrap: break-word;
+			}
+			#chat {
+				border: solid 2px #7A9E9F;
+				border-radius: 5px;
+				height: 250px;
+				overflow-y: scroll;
+			}
+
+		</style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="sidebar" data-background-color="white" data-active-color="danger">
+
+    <!--
+		Tip 1: you can change the color of the sidebar's background using: data-background-color="white | black"
+		Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
+	-->
+
+    	<div class="sidebar-wrapper">
+            <div class="logo">
+							<a href="/" class="simple-text">
+								VOICE X
+							</a>
+            </div>
+
+            <ul class="nav">
+                <li class="active">
+                    <a href="{% url 'index' %}">
+                        <i class="ti-panel"></i>
+                        <p>Meeting</p>
+                    </a>
+                </li>
+								<li>
+                    <a href="{% url 'dash2' %}">
+                        <i class="ti-panel"></i>
+                        <p>Summary</p>
+                    </a>
+                </li>
+								<li>
+                    <a href="{% url 'past_meets' %}">
+                        <i class="ti-panel"></i>
+                        <p>Past Meetings</p>
+                    </a>
+                </li>
+            </ul>
+    	</div>
+    </div>
+
+    <div class="main-panel">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar bar1"></span>
+                        <span class="icon-bar bar2"></span>
+                        <span class="icon-bar bar3"></span>
+                    </button>
+                    <a class="navbar-brand" href="{% url 'index' %}">Dashboard</a>
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header" style="margin-bottom: 20px;">
+                                <h3 style="float: left;" class="title">Meeting</h3>
+																<h3 style="float: right;" class="title" id="DATE"></h3>
+                            </div>
+
+                            <div class="content" style="margin: 0 auto;width: 50%;">
+															<div class="chart-container">
+																<form class="" method="post" enctype="multipart/form-data" id="transcriptForm">
+																	{% csrf_token %}
+																	<label for="leader_name"><b>Leader's Name:</b></label>
+																	<input class="form-control border-input" id="leader_name" type="text" name="leader_name" value="">
+																	<label style="margin-top: 10px" for="agenda"><b>Agenda:</b> </label>
+																	<input class="form-control border-input" id="agenda"  type="text" name="agenda" value="">
+																	<label style="margin-top: 10px" for="nopersons"><b>No. of Persons to be Present:</b> </label>
+																	<input class="form-control border-input" id="nopersons"  type="text" name="nopersons" value="">
+																	<label style="margin-top: 10px" for="upload_file"><b>Upload the audio file:</b> </label>
+																	<input style="margin-top: 10px;" type="file" name="audio_file" class="btn btn-primary" id="upload_file"></input>
+																	<input id="summary" type="text" name="text1" hidden>
+																	<input id="date" type="text" name="date" hidden>
+																	<p style="margin-top: 10px"><b>Note:</b> Time will be noted automatically.</p>
+																	<div class="btns" style="margin: 0 auto;margin-top: 5px;">
+																		<input type="submit" name="submitBtn" id="submit" class="btn btn-primary" value="Submit">
+
+																		<!-- <button type="button" name="button"  class="btn btn-primary" id="calendar">Add to Calendar</button> -->
+																	</div>
+																</form>
+															</div>
+                            </div>
+														<div style="margin: 0 auto;width: 60%;">
+															<h3>Transcripts:</h3>
+															<div id="chat">
+
+															</div>
+														</div>
+														<div class="content" style="margin: 0 auto;width: 50%;">
+															<form action="/dash2/" method="post">
+																{% csrf_token %}
+																<input id="transcripts" type="text" name="text" hidden>
+																<input id="data_id" type="text" name="data_id" hidden>
+																<input style="margin:0 auto;" type="submit" id="summarizer" class="btn btn-primary" name="button" value="Generate Notes"></input>
+															</form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+    <!--   Core JS Files   -->
+    <script src="../../static/js/jquery-1.10.2.js" type="text/javascript"></script>
+	<script src="../../static/js/bootstrap.min.js" type="text/javascript"></script>
+
+	<!--  Checkbox, Radio & Switch Plugins -->
+	<script src="../../static/js/bootstrap-checkbox-radio.js"></script>
+
+	<!--  Charts Plugin -->
+	<script src="../../static/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="../../static/js/bootstrap-notify.js"></script>
+
+    <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
+	<script src="../../static/js/paper-dashboard.js"></script>
+
+	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+	<script src="../../static/js/demo.js"></script>
+	<script src="../../static/js/main.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script>
+		$(document).ready(() => {
+			$("#date").val(today);
+			var today = new Date();
+			var dd = today.getDate();
+			var mm = today.getMonth()+1; //January is 0!
+
+			var yyyy = today.getFullYear();
+			if(dd<10){
+			    dd='0'+dd;
+			}
+			if(mm<10){
+			    mm='0'+mm;
+			}
+			var today = dd+'/'+mm+'/'+yyyy;
+			document.getElementById("DATE").innerHTML += today;
+			var text_data = `{{ text_data | safe }}`;
+			var div = $("#chat");
+			if(text_data !== 'no') {
+				var speakers = {};
+				text_data = JSON.parse(text_data);
+				for(var i=0; i < text_data.length; i ++) {
+					div.append(`<p style="margin-top: 6px;"><b>Speaker ${text_data[i][0]}:</b>  ${text_data[i][1]}</p><br>`);
+					if(!speakers[text_data[i][0]]) {
+						speakers[text_data[i][0]] = text_data[i][1] + ".";
+					} else {
+						speakers[text_data[i][0]] += text_data[i][1] + ".";
+					}
+				}
+				$("#transcripts").val(JSON.stringify(speakers));
+			}
+		});
+
+	</script>
+
+</html>
