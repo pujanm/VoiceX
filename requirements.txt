@@ -113,7 +113,7 @@ regex==2017.4.5
 request==1.0.2
 requests==2.19.1
 requests-oauthlib==1.0.0
-rsa==4.0
+rsa==4.1
 s3transfer==0.1.13
 scipy==1.1.0
 selenium==3.12.0
