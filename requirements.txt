@@ -105,7 +105,7 @@ python-dotenv==0.9.1
 python3-openid==3.1.0
 pytz==2018.5
 pytzdata==2018.5
-PyYAML==3.12
+PyYAML==5.4
 pyzmq==17.0.0
 qtconsole==4.3.1
 query-string==1.0.2
