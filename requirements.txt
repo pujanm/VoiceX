@@ -23,7 +23,7 @@ dateparser==0.7.0
 decorator==4.2.1
 defusedxml==0.5.0
 dill==0.2.8.2
-Django==2.0.8
+Django==2.2.24
 django-cors-headers==2.2.0
 docutils==0.14
 en-core-web-sm==2.0.0
