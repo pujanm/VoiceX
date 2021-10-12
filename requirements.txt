@@ -74,7 +74,7 @@ notebook==5.4.1
 numpy==1.15.2
 oauth2client==4.1.3
 oauthlib==2.1.0
-opencv-contrib-python==3.4.1.15
+opencv-contrib-python==4.2.0.32
 pandocfilters==1.4.2
 ParallelDots==3.2.11
 parso==0.1.1
