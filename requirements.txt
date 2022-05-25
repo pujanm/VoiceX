@@ -97,7 +97,7 @@ pycparser==2.18
 pyflakes==1.6.0
 Pygments==2.2.0
 pygorithm==1.0.4
-PyJWT==1.6.4
+PyJWT==2.4.0
 pyparsing==2.2.0
 pyte==0.8.0
 python-dateutil==2.7.3
