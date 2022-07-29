@@ -62,7 +62,7 @@ Markdown==3.0.1
 MarkupSafe==1.0
 maya==0.5.0
 mccabe==0.6.1
-mistune==0.8.3
+mistune==2.0.3
 mnist==0.2.1
 msgpack==0.5.6
 msgpack-numpy==0.4.4.1
